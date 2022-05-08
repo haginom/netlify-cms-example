@@ -1,6 +1,6 @@
 backend:
   name: git-gateway # Link the CMS with a Git repo via Netlify
-  branch: master # Branch to update (optional; defaults to master)
+  branch: main # Branch to update (optional; defaults to master)
 media_folder: static/img # Store uploaded images in this folder
 public_folder: /img # Where to find the images in the live site
 collections:
