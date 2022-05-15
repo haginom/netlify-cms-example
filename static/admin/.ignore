@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway # Link the CMS with a Git repo via Netlify
+  branch: main # Branch to update (optional; defaults to master)
+local_backend: true
+public_folder: /img # Where to find the images in the live site
+media_library:
+  name: uploadcare
+  config:
+    multiple: true
+    publicKey: e3f0591f5f4a744c8e52
+collections:
+  - label: "Sessions"
+    name: "sessions"
+    widget: object
+    create: true
+    slug: "session{{num}}-{{slug}}"
+    folder: "src/pages/portal-one/"
+    summary: "{{fields.document}}: {{fields.filetype}}"
+    fields:
+      - {
+        label: "Template Key",
+        name: "templateKey",
+        widget: "hidden",
+        default: "session"
+      }
+      - {
+          label: "File name",
+          name: "document",
+          widget: "string",
+          hint: "Name of File",
+        }
+      - {
+          label: "Filetype",
+          name: "filetype",
+          widget: "string",
+          hint: "Is it a Mp4/image?",
+        }
+      - { label: "File", name: "file", widget: "file" }
+  - label: "Guess who cards"
+    name: "cards"
+    widget: object
+    create: true
+    folder: "src/pages/portalone/cards"
+    summary: "{{fields.document}}: {{fields.filetype}}"
+    fields:
+      - {
+          label: "File name",
+          name: "document",
+          widget: "string",
+          hint: "Name of File",
+        }
+      - {
+          label: "Filetype",
+          name: "filetype",
+          widget: "string",
+          hint: "Is it a Mp4/image?",
+        }
+      - { label: "File", name: "file", widget: "file" }
+
+
+
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - {
+          label: Sessions,
+          name: sessions,
+          widget: object,
+          fields:
+            [
+              { label: Heading, name: heading, widget: string },
+              {
+                label: Session,
+                name: sessions,
+                widget: list,
+                fields:
+                  [
+                    { label: Title, name: title, widget: string },
+                    { label: Colour, name: colour, widget: color },
+                  ],
+              },
+            ],
+        }

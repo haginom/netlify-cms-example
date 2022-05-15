@@ -1,15 +1,42 @@
 backend:
   name: git-gateway # Link the CMS with a Git repo via Netlify
   branch: main # Branch to update (optional; defaults to master)
-media_folder: static/img # Store uploaded images in this folder
-public_folder: /img # Where to find the images in the live site
+local_backend: true
+public_folder: /img
+media_folder: /src/img
+
 collections:
-  - name: "session" # Used in routes, e.g. admin/collections/work
-    label: "Session" # Used in the CMS UI
-    folder: "src/pages/portalone" # Where the files will be stored
-    create: true # Users can create new posts
-    slug: "{{slug}}" # Creates a safe slug from the post's title, which will be used for the post's filename
-    fields: # The fields for each document
-      - { label: "Document", name: "document", widget: "string" }
-      - { label: "Filetype", name: "filetype", widget: "string" }
-      - { label: "Download", name: "download", widget: "file" }
+  - label: "Portal one pages"
+    name: "portal-one"
+    folder: "src/pages/portal-one"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          label: "Template Key",
+          name: "templateKey",
+          widget: "hidden",
+          default: "portal-one-page",
+        }
+      - { label: Title, name: title, widget: string }
+      - { label: Colour, name: colour, widget: color }
+      - {
+          label: Tables,
+          name: table,
+          widget: list,
+          fields:
+            [
+              { label: Table Title, name: tablename, widget: string },
+              {
+                label: Resources,
+                name: resource,
+                widget: list,
+                fields:
+                  [
+                    { label: File Name, name: filename, widget: string },
+                    { label: Filetype, name: filetype, widget: string },
+                    { label: File, name: file, widget: file },
+                  ],
+              },
+            ],
+        }
